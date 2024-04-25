@@ -7,70 +7,103 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PlayerTableCellDelegate {
+    
+    
+    @IBOutlet weak var historyButton: UIButton!
+    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var addPlayerButton: UIButton!
+    @IBOutlet weak var deletePlayerButton: UIButton!
+    @IBOutlet weak var startGameButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    var players: [Player] = []
 
-    @IBOutlet weak var playerOneInfo: UILabel!
-    @IBOutlet weak var playerTwoInfo: UILabel!
-    @IBOutlet weak var gameStatusLabel: UILabel!
-    
-    var playerOneLife = 20
-    var playerTwoLife = 20
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateLifeTotals()
-    }
-
-
-    
-    @IBAction func playerOneButtonPressed(_ sender: UIButton) {
-        playerOneLife = handleLifeChange(currentLife: playerOneLife, sender: sender)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(playerTableCell.nib(), forCellReuseIdentifier: playerTableCell.identifier)
+        setupInitialPlayers()
     }
     
-    @IBAction func playerTwoButtonPressed(_ sender: UIButton) {
-        playerTwoLife = handleLifeChange(currentLife: playerTwoLife, sender: sender)
+    func setupInitialPlayers() {
+        players = [
+                Player(lives: 20, playerNumber: 1),
+                Player(lives: 20, playerNumber: 2),
+                Player(lives: 20, playerNumber: 3),
+                Player(lives: 20, playerNumber: 4)
+            ]
+        tableView.reloadData()
     }
     
-    func handleLifeChange(currentLife: Int, sender: UIButton) -> Int {
-        var newLife = currentLife
-        switch sender.titleLabel?.text {
-        case "+":
-            newLife += 1
-        case "-":
-            newLife -= 1
-        case "+5":
-            newLife += 5
-        case "-5":
-            newLife -= 5
-        default:
-            break
-        }
-        updateLifeTotals()
-        return newLife
+    @IBAction func resetButtonPressed(_ sender: UIButton) {
+        setupInitialPlayers()
+        addPlayerButton.isEnabled = true
+        deletePlayerButton.isEnabled = true
     }
     
-    func updateLifeTotals() {
-        DispatchQueue.main.async {
-            [self] in
-            playerOneInfo.text = "Player 1: \(self.playerOneLife)"
-            playerTwoInfo.text = "Player 2: \(self.playerTwoLife)"
-            checkForGameOver()
+    @IBAction func addPlayerButtonPressed(_ sender: UIButton) {
+        if players.count < 8 {
+            let newPlayer = Player(lives: 20, playerNumber: players.count + 1)
+            players.append(newPlayer)
+            tableView.reloadData()
         }
     }
     
-    func checkForGameOver() {
-        if playerOneLife <= 0 {
-            gameStatusLabel.text = "Player 1 LOSES!"
-            disableButtons()
-        } else if playerTwoLife <= 0 {
-            gameStatusLabel.text = "Player 2 LOSES!"
-            disableButtons()
-        } else {
-            gameStatusLabel.text = ""
+    
+    @IBAction func deletePlayerButtonPressed(_ sender: UIButton) {
+        if players.count > 2 {
+            players.removeLast()
+            for (index, player) in players.enumerated() {
+                    players[index].playerNumber = index + 1
+            }
+            tableView.reloadData()
         }
     }
-    private func disableButtons() {
-        
+    
+    
+    @IBAction func startGamePressed(_ sender: UIButton) {
+        addPlayerButton.isEnabled = false
+        deletePlayerButton.isEnabled = false
+    }
+    
+    func playerDidReachZeroLife(playerNumber: Int) {
+        let alert = UIAlertController(title: "Game Over!", message: "Player \(playerNumber) lost!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                self?.setupInitialPlayers()
+                self?.addPlayerButton.isEnabled = true
+                self?.deletePlayerButton.isEnabled = true
+            }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }
+
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return players.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: playerTableCell.identifier, for: indexPath) as! playerTableCell
+        let player = players[indexPath.row]
+        cell.player = player
+        cell.delegate = self
+        return cell
+    }
+    
+    func endGame() {
+        let alert = UIAlertController(title: "Game Over!", message: "Resetting...", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.setupInitialPlayers()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+
+    
+}
+
 

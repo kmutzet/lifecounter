@@ -16,6 +16,8 @@
 		DB673A612BD1DA9A00FDA9BB /* LifeCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB673A602BD1DA9A00FDA9BB /* LifeCounterTests.swift */; };
 		DB673A6B2BD1DA9A00FDA9BB /* LifeCounterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB673A6A2BD1DA9A00FDA9BB /* LifeCounterUITests.swift */; };
 		DB673A6D2BD1DA9A00FDA9BB /* LifeCounterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB673A6C2BD1DA9A00FDA9BB /* LifeCounterUITestsLaunchTests.swift */; };
+		DB673A822BD85EF500FDA9BB /* playerTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB673A812BD85EF500FDA9BB /* playerTableCell.xib */; };
+		DB673A842BD8608600FDA9BB /* playerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB673A832BD8608600FDA9BB /* playerTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		DB673A662BD1DA9A00FDA9BB /* LifeCounterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeCounterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB673A6A2BD1DA9A00FDA9BB /* LifeCounterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeCounterUITests.swift; sourceTree = "<group>"; };
 		DB673A6C2BD1DA9A00FDA9BB /* LifeCounterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeCounterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DB673A812BD85EF500FDA9BB /* playerTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = playerTableCell.xib; sourceTree = "<group>"; };
+		DB673A832BD8608600FDA9BB /* playerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				DB673A522BD1DA9A00FDA9BB /* Assets.xcassets */,
 				DB673A542BD1DA9A00FDA9BB /* LaunchScreen.storyboard */,
 				DB673A572BD1DA9A00FDA9BB /* Info.plist */,
+				DB673A812BD85EF500FDA9BB /* playerTableCell.xib */,
+				DB673A832BD8608600FDA9BB /* playerTableCell.swift */,
 			);
 			path = LifeCounter;
 			sourceTree = "<group>";
@@ -231,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB673A822BD85EF500FDA9BB /* playerTableCell.xib in Resources */,
 				DB673A532BD1DA9A00FDA9BB /* Assets.xcassets in Resources */,
 				DB673A562BD1DA9A00FDA9BB /* Base in Resources */,
 				DB673A512BD1DA9800FDA9BB /* Base in Resources */,
@@ -258,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB673A842BD8608600FDA9BB /* playerTableCell.swift in Sources */,
 				DB673A4E2BD1DA9800FDA9BB /* ViewController.swift in Sources */,
 				DB673A4A2BD1DA9800FDA9BB /* AppDelegate.swift in Sources */,
 				DB673A4C2BD1DA9800FDA9BB /* SceneDelegate.swift in Sources */,
